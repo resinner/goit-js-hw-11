@@ -41,7 +41,6 @@ function onFormSubmit(e) {
   apiService.fetchCards().then(array => {
     console.log(array);
     if (array.length === 0) {
-
       let gallery = new SimpleLightbox('.gallery a', {
         captions: true,
         captionDelay: 250,
@@ -50,7 +49,6 @@ function onFormSubmit(e) {
         captionsData: 'alt',
       });
       gallery.on('show.simplelightbox', function (e) {});
-
 
       refs.loadMoreBtn.classList.add('visually-hidden');
       return Notiflix.Notify.failure(
@@ -80,15 +78,14 @@ function onLoadMore() {
   apiService.fetchCards().then(array => {
     renderGalleryCard(array);
 
-    
-let gallery = new SimpleLightbox('.gallery a', {
-  captions: true,
-  captionDelay: 250,
-  captionSelector: 'img',
-  captionPosition: 'bottom',
-  captionsData: 'alt',
-});
-gallery.on('show.simplelightbox', function (e) {});
+    let gallery = new SimpleLightbox('.gallery a', {
+      captions: true,
+      captionDelay: 250,
+      captionSelector: 'img',
+      captionPosition: 'bottom',
+      captionsData: 'alt',
+    });
+    gallery.on('show.simplelightbox', function (e) {});
 
     startAmount += array.length;
 
@@ -113,33 +110,39 @@ function renderGalleryCard(arrayOfObjects) {
         comments,
         downloads,
       }) => {
-        return `<a href="${largeImageURL} class="gallery-link">
-      <div class="photo-card">
+        return `<div class="photo-card">
+
       <a class="gallery-item" href="${largeImageURL}">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-  </a>
+  <img
+  class="gallery__image"
+  src="${webformatURL}" 
+  alt="${tags}" 
+  loading="lazy"
+  /></a>
+  
   <div class="info">
     <p class="info-item">
       <b>Likes</b> 
       <span class="quantity">${likes}</span>
     </p>
+
     <p class="info-item">
       <b>Views</b>
       <span class="quantity">${views}</span>
     </p>
+
     <p class="info-item">
       <b>Comments</b>
       <span class="quantity">${comments}</span>
     </p>
+
     <p class="info-item">
       <b>Downloads</b>
       <span class="quantity">${downloads}</span>
     </p>
   </div>
-</div>
-      </a>`;
-      }
-    )
+</div>`;
+      })
     .join('');
   refs.galleryBlock.insertAdjacentHTML('beforeend', markup);
 }
@@ -148,12 +151,11 @@ function clearRequestedInfo() {
   refs.galleryBlock.innerHTML = '';
 }
 
-let gallery = new SimpleLightbox(".gallery a", {
+let gallery = new SimpleLightbox('.gallery a', {
   captions: true,
   captionDelay: 250,
-  captionSelector: "img",
-  captionPosition: "bottom",
-  captionsData: "alt",
+  captionSelector: 'img',
+  captionPosition: 'bottom',
+  captionsData: 'alt',
 });
-gallery.on("show.simplelightbox", function(e) {
-});
+gallery.on('show.simplelightbox', function (e) {});
