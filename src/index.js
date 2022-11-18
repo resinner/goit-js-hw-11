@@ -39,16 +39,9 @@ function onFormSubmit(e) {
 
   apiService.resetPage();
   apiService.fetchCards().then(array => {
-    console.log(array);
+    // console.log(array);
+
     if (array.length === 0) {
-      let gallery = new SimpleLightbox('.gallery a', {
-        captions: true,
-        captionDelay: 250,
-        captionSelector: 'img',
-        captionPosition: 'bottom',
-        captionsData: 'alt',
-      });
-      gallery.on('show.simplelightbox', function (e) {});
 
       refs.loadMoreBtn.classList.add('visually-hidden');
       return Notiflix.Notify.failure(
@@ -60,6 +53,9 @@ function onFormSubmit(e) {
     refs.loadMoreBtn.classList.remove('visually-hidden');
 
     if (apiService.page === 2) {
+
+  new SimpleLightbox('.gallery a');
+
       Notiflix.Notify.success(
         `Hooray! We found ${apiService.totalHits} images.`
       );
@@ -78,14 +74,7 @@ function onLoadMore() {
   apiService.fetchCards().then(array => {
     renderGalleryCard(array);
 
-    let gallery = new SimpleLightbox('.gallery a', {
-      captions: true,
-      captionDelay: 250,
-      captionSelector: 'img',
-      captionPosition: 'bottom',
-      captionsData: 'alt',
-    });
-    gallery.on('show.simplelightbox', function (e) {});
+    new SimpleLightbox('.gallery a');
 
     startAmount += array.length;
 
